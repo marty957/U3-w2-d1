@@ -6,11 +6,11 @@ import CommentArea from "./CommentArea";
 
 class BookList extends Component {
   state = {
-    asin: ""
+    asin: "",
+    searchQuery: ""
   };
   handleFilter = (e) => {
-    console.log(e.target.value);
-    console.log(this.props);
+    this.setState({ searchQuery: e.target.value });
   };
   changeId = (newAsin) => {
     this.setState({ asin: newAsin });
@@ -31,12 +31,14 @@ class BookList extends Component {
           <Row className="g-3">
             <Col md={9}>
               <Row className="g-2">
-                {this.props.books.map((b) => (
-                  <Col xs={6} md={4} xl={3} key={b.asin} onClick={() => this.changeId(b.asin)}>
-                    <SingleBook book={b} />
-                    {console.log(b)}
-                  </Col>
-                ))}
+                {this.props.books
+                  .filter((book) => book.title.toLowerCase().includes(this.state.searchQuery))
+                  .map((b) => (
+                    <Col xs={6} md={4} xl={3} key={b.asin} onClick={() => this.changeId(b.asin)}>
+                      <SingleBook book={b} />
+                      {console.log(b)}
+                    </Col>
+                  ))}
               </Row>
             </Col>
             <Col md={3}>

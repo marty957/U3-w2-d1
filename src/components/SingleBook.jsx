@@ -4,8 +4,9 @@ import Card from "react-bootstrap/Card";
 
 class SingleBook extends Component {
   state = {
-    selected: this.props.asin
+    selected: false
   };
+
   handleChange = () => {
     this.setState({ selected: !this.state.selected });
   };
